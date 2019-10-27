@@ -7,5 +7,5 @@ Office.initialize = reason => {
 function exportAppointments(event) {
     var buttonId = event.source.id;
     console.log('exportAppointments() called, buttonID: ' + buttonId);
-    complete();
+    event.completed()();
 }
