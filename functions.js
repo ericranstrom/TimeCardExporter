@@ -32,6 +32,11 @@ function getCurrentItem(accessToken, callback) {
     headers: { 'Authorization': 'Bearer ' + accessToken }
   }).done(function(response){
     console.log("Got the response from the rest api!")
+
+    response.value.forEach(function (item, index) {
+      console.log(item.Id)
+    });
+
     console.log(response.value[0])
     callback()
   }).fail(function(error){
@@ -39,4 +44,20 @@ function getCurrentItem(accessToken, callback) {
     // Handle error.
     callback()
   });
+}
+
+function getEventItem(id) {
+  var getEventUrl = Office.context.mailbox.restUrl + "/v2.0/me/events/"+id;
+  $.ajax({
+    url: getEventUrl,
+    dataType: 'json',
+    headers: { 'Authorization': 'Bearer ' + accessToken },
+    async: false
+  }).done(function(response){
+    console.log("Got the event response from the rest api!")
+    console.log(response)
+  }).fail(function(error){
+    console.log("Failed to get event")
+  });
+
 }
