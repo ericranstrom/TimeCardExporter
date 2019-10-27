@@ -16,13 +16,13 @@ function exportAppointments(event) {
         console.log("access token: " + accessToken)
 
         // Use the access token.
-        getCurrentItem(accessToken);
+        getCurrentItem(accessToken, function() {
+          event.completed();
+        });
       } else {
         console.log("Failed to get access token!")
         // Handle the error.
       }
-
-      event.completed();
     });
 
 
@@ -41,7 +41,7 @@ function getItemRestId() {
   }
 }
 
-function getCurrentItem(accessToken) {
+function getCurrentItem(accessToken, callback) {
   // Get the item's REST ID.
   var itemId = getItemRestId();
 
@@ -60,8 +60,10 @@ function getCurrentItem(accessToken) {
     var subject = item.Subject;
     console.log("Got the item from the rest api!")
     console.log(subject)
+    callback()
   }).fail(function(error){
     console.log("Failed to get item")
     // Handle error.
+    callback()
   });
 }
