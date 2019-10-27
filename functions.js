@@ -56,6 +56,7 @@ function getEventItem(accessToken, id) {
   }).done(function(response){
     console.log("Got the event response from the rest api!")
     console.log(response)
+    console.log(response.Subject)
   }).fail(function(error){
     console.log("Failed to get event")
   });
