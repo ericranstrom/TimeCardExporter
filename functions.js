@@ -13,10 +13,12 @@ function exportAppointments(event) {
     Office.context.mailbox.getCallbackTokenAsync({isRest: true}, function(result){
       if (result.status === "succeeded") {
         var accessToken = result.value;
+        console.log("access token: " + accessToken)
 
         // Use the access token.
         getCurrentItem(accessToken);
       } else {
+        console.log("Failed to get access token!")
         // Handle the error.
       }
     });
@@ -59,6 +61,7 @@ function getCurrentItem(accessToken) {
     console.log("Got the item from the rest api!")
     console.log(subject)
   }).fail(function(error){
+    console.log("Failed to get item")
     // Handle error.
   });
 }
