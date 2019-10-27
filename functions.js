@@ -8,8 +8,6 @@ function exportAppointments(event) {
     var buttonId = event.source.id;
     console.log('exportAppointments() called, buttonID: ' + buttonId);
 
-
-
     Office.context.mailbox.getCallbackTokenAsync({isRest: true}, function(result){
       console.log("Got a result")
       console.log(result)
@@ -23,11 +21,11 @@ function exportAppointments(event) {
         console.log("Failed to get access token!")
         // Handle the error.
       }
+
+      event.completed();
     });
 
 
-
-    event.completed();
 }
 
 function getItemRestId() {
