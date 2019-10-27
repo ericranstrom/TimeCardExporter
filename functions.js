@@ -12,7 +12,7 @@ function exportAppointments(event) {
       if (result.status === "succeeded") {
         var accessToken = result.value;
         // Use the access token.
-        getCurrentItem(accessToken, function() {
+        getWeeklyEvents(accessToken, function() {
           event.completed();
         });
       } else {
@@ -22,7 +22,7 @@ function exportAppointments(event) {
     });
 }
 
-function getCurrentItem(accessToken, callback) {
+function getWeeklyEvents(accessToken, callback) {
 
   var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
 
@@ -34,7 +34,7 @@ function getCurrentItem(accessToken, callback) {
     console.log("Got the response from the rest api!")
 
     response.value.forEach(function (item, index) {
-      getEventItem(item.Id)
+      getEventItem(accessToken, item.Id)
     });
 
     console.log(response.value[0])
@@ -46,7 +46,7 @@ function getCurrentItem(accessToken, callback) {
   });
 }
 
-function getEventItem(id) {
+function getEventItem(accessToken, id) {
   var getEventUrl = Office.context.mailbox.restUrl + "/v2.0/me/events/"+id;
   $.ajax({
     url: getEventUrl,
