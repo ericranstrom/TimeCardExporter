@@ -34,7 +34,7 @@ function getCurrentItem(accessToken, callback) {
     console.log("Got the response from the rest api!")
 
     response.value.forEach(function (item, index) {
-      console.log(item.Id)
+      getEventItem(item.Id)
     });
 
     console.log(response.value[0])
