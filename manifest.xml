@@ -127,7 +127,7 @@
         <bt:Image id="Icon.80x80" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Functions.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/functions.ts"/>
+        <bt:Url id="Functions.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/functions.html"/>
         <bt:Url id="Taskpane.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
