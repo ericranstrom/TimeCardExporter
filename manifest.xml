@@ -42,8 +42,7 @@
     <Hosts>
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
-          <FunctionFile resid="Commands.Url"/>
-          <FunctionFile resid="ExportFunction.Url"/>
+          <FunctionFile resid="Functions.Url"/>
           <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="apptOrgReadGroup">
@@ -128,8 +127,7 @@
         <bt:Image id="Icon.80x80" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/commands.html"/>
-        <bt:Url id="ExportFunction.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/exportAppointments.ts"/>
+        <bt:Url id="Functions.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/functions.ts"/>
         <bt:Url id="Taskpane.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
