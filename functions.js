@@ -51,8 +51,10 @@ function getCurrentItem(accessToken, callback) {
   var getMessageUrl = Office.context.mailbox.restUrl +
     '/v2.0/me/messages/' + itemId;
 
+  var getEventsUrl = "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
+
   $.ajax({
-    url: getMessageUrl,
+    url: getEventsUrl,
     dataType: 'json',
     headers: { 'Authorization': 'Bearer ' + accessToken }
   }).done(function(item){
