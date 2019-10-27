@@ -32,7 +32,7 @@ function getCurrentItem(accessToken, callback) {
     headers: { 'Authorization': 'Bearer ' + accessToken }
   }).done(function(response){
     console.log("Got the response from the rest api!")
-    console.log(response)
+    console.log(response.value)
     callback()
   }).fail(function(error){
     console.log("Failed to get item")
