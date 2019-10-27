@@ -4,8 +4,8 @@ Office.initialize = reason => {
 };
 
 // Add any ui-less function here
-function export(event) {
+function exportAppointments(event) {
     var buttonId = event.source.id;
-    console.log('export() called, buttonID: ' + buttonId);
+    console.log('exportAppointments() called, buttonID: ' + buttonId);
     complete();
 }

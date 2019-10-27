@@ -74,7 +74,7 @@
                     <bt:Image size="80" resid="Icon.80x80"/>
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
-                    <FunctionName>export</FunctionName>
+                    <FunctionName>exportAppointments</FunctionName>
                   </Action>
                 </Control>
               </Group>
@@ -111,7 +111,7 @@
                     <bt:Image size="80" resid="Icon.80x80"/>
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
-                    <FunctionName>export</FunctionName>
+                    <FunctionName>exportAppointments</FunctionName>
                   </Action>
                 </Control>
               </Group>
