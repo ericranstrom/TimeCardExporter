@@ -45,7 +45,7 @@
           <FunctionFile resid="Commands.Url"/>
           <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
             <OfficeTab id="TabDefault">
-              <Group id="msgReadGroup">
+              <Group id="apptOrgReadGroup">
                 <Label resid="GroupLabel"/>
                 <Control xsi:type="Button" id="msgReadOpenPaneButton">
                   <Label resid="TaskpaneButton.Label"/>
@@ -82,7 +82,7 @@
           </ExtensionPoint>
           <ExtensionPoint xsi:type="AppointmentAttendeeCommandSurface">
             <OfficeTab id="TabDefault">
-              <Group id="msgReadGroup">
+              <Group id="apptAttndReadGroup">
                 <Label resid="GroupLabel"/>
                 <Control xsi:type="Button" id="msgReadOpenPaneButton">
                   <Label resid="TaskpaneButton.Label"/>
