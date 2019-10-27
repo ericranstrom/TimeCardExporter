@@ -11,6 +11,7 @@ function exportAppointments(event) {
 
 
     Office.context.mailbox.getCallbackTokenAsync({isRest: true}, function(result){
+      console.log("Got a result")
       console.log(result)
       if (result.status === "succeeded") {
         var accessToken = result.value;
