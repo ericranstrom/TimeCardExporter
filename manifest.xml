@@ -47,7 +47,7 @@
             <OfficeTab id="TabDefault">
               <Group id="apptOrgReadGroup">
                 <Label resid="GroupLabel"/>
-                <Control xsi:type="Button" id="msgReadOpenPaneButton">
+                <Control xsi:type="Button" id="TaskPaneButton1">
                   <Label resid="TaskpaneButton.Label"/>
                   <Supertip>
                     <Title resid="TaskpaneButton.Label"/>
@@ -62,7 +62,7 @@
                     <SourceLocation resid="Taskpane.Url"/>
                   </Action>
                 </Control>
-                <Control xsi:type="Button" id="ActionButton">
+                <Control xsi:type="Button" id="ExportButton1">
                   <Label resid="ActionButton.Label"/>
                   <Supertip>
                     <Title resid="ActionButton.Label"/>
@@ -84,7 +84,7 @@
             <OfficeTab id="TabDefault">
               <Group id="apptAttndReadGroup">
                 <Label resid="GroupLabel"/>
-                <Control xsi:type="Button" id="msgReadOpenPaneButton">
+                <Control xsi:type="Button" id="TaskPaneButton2">
                   <Label resid="TaskpaneButton.Label"/>
                   <Supertip>
                     <Title resid="TaskpaneButton.Label"/>
@@ -99,7 +99,7 @@
                     <SourceLocation resid="Taskpane.Url"/>
                   </Action>
                 </Control>
-                <Control xsi:type="Button" id="ActionButton">
+                <Control xsi:type="Button" id="ExportButton2">
                   <Label resid="ActionButton.Label"/>
                   <Supertip>
                     <Title resid="ActionButton.Label"/>
