@@ -50,11 +50,13 @@ function getCurrentItem(accessToken, callback) {
   // https://docs.microsoft.com/previous-versions/office/office-365-api/api/version-2.0/mail-rest-operations#get-messages.
   var getMessageUrl = Office.context.mailbox.restUrl +
     '/v2.0/me/messages/' + itemId;
+  console.log(getMessageUrl)
 
   var getEventsUrl = "https://graph.microsoft.com/v1.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
+  var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v1.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
 
   $.ajax({
-    url: getEventsUrl,
+    url: getWeeklyEventsUrl,
     dataType: 'json',
     headers: { 'Authorization': 'Bearer ' + accessToken }
   }).done(function(item){
