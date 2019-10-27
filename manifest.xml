@@ -43,6 +43,7 @@
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
           <FunctionFile resid="Commands.Url"/>
+          <FunctionFile resid="ExportFunction.Url"/>
           <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="apptOrgReadGroup">
@@ -74,7 +75,7 @@
                     <bt:Image size="80" resid="Icon.80x80"/>
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
-                    <FunctionName>action</FunctionName>
+                    <FunctionName>export</FunctionName>
                   </Action>
                 </Control>
               </Group>
@@ -111,7 +112,7 @@
                     <bt:Image size="80" resid="Icon.80x80"/>
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
-                    <FunctionName>action</FunctionName>
+                    <FunctionName>export</FunctionName>
                   </Action>
                 </Control>
               </Group>
@@ -128,6 +129,7 @@
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Commands.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/commands.html"/>
+        <bt:Url id="ExportFunction.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/exportAppointments.ts"/>
         <bt:Url id="Taskpane.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
