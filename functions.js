@@ -12,10 +12,11 @@ function exportAppointments(event) {
     CATEGORIES = []
 
     getAccessToken().then(function(accessToken) {
+
         getWeeklyEvents(accessToken, function() {
              event.completed();
          });
-     });
+     }).finally();
 }
 
 function getAccessToken() {
@@ -55,8 +56,33 @@ function getWeeklyEvents(accessToken, callback) {
   });
 }
 
+function getIDsForWeeklyEvents(accessToken) {
+    return new Promise((resolve, reject) => {
+        var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
+        $.ajax({
+            url: getWeeklyEventsUrl,
+            dataType: 'json',
+            headers: { 'Authorization': 'Bearer ' + accessToken }
+          }).done(function(response){
+            console.log("Got the response from the rest api!")
+            var ids = []
+            response.value.forEach(function (item, index) {
+                ids.push(item.Id)
+            });
+            console.log(ids)
+            resolve(ids)
+          }).fail(function(error){
+            reject(new Error("Failed to get weekly events"))
+          });
+    });
+}
+
 //see response here https://docs.microsoft.com/en-us/previous-versions/office/office-365-api/api/version-2.0/calendar-rest-operations#GetEvent
 function getEventItem(accessToken, id) {
+
+
+
+
   var getEventUrl = Office.context.mailbox.restUrl + "/v2.0/me/events/"+id;
   $.ajax({
     url: getEventUrl,
