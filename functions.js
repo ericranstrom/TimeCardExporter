@@ -34,30 +34,6 @@ function getAccessToken() {
     });
 }
 
-function getWeeklyEvents(accessToken, callback) {
-
-  var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
-
-  $.ajax({
-    url: getWeeklyEventsUrl,
-    dataType: 'json',
-    headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN }
-  }).done(function(response){
-    console.log("Got the response from the rest api!")
-
-    response.value.forEach(function (item, index) {
-      getEventItem(accessToken, item.Id)
-    });
-
-    console.log(response.value[0])
-    callback()
-  }).fail(function(error){
-    console.log("Failed to get item")
-    // Handle error.
-    callback()
-  });
-}
-
 function getIDsForWeeklyEvents() {
     return new Promise((resolve, reject) => {
         var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
@@ -80,6 +56,7 @@ function getIDsForWeeklyEvents() {
     });
 }
 
+//see response here https://docs.microsoft.com/en-us/previous-versions/office/office-365-api/api/version-2.0/calendar-rest-operations#GetEvent
 function getEventsForIds(ids) {
     var promises = []
     ids.forEach(function (id, index) {
@@ -92,6 +69,11 @@ function getEventsForIds(ids) {
             }).done(function(response){
               console.log("Got the event response from the rest api!")
               console.log(response.Subject)
+              console.log(response.Categories)
+              console.log(response.Start.DateTime)
+              console.log(response.End.DateTime)
+              console.log(Date.parse(response.End.DateTime).getTime() - Date.parse(response.Start.DateTime).getTime())
+              console.log("*********************************")
               resolve(event)
             }).fail(function(error){
               reject(new Error("Failed to get event " + id))
@@ -100,28 +82,6 @@ function getEventsForIds(ids) {
         promises.push(p)
     });
     return Promise.all(promises)
-}
-
-//see response here https://docs.microsoft.com/en-us/previous-versions/office/office-365-api/api/version-2.0/calendar-rest-operations#GetEvent
-function getEventItem(accessToken, id) {
-
-
-
-
-  var getEventUrl = Office.context.mailbox.restUrl + "/v2.0/me/events/"+id;
-  $.ajax({
-    url: getEventUrl,
-    dataType: 'json',
-    headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN },
-    async: false
-  }).done(function(response){
-    console.log("Got the event response from the rest api!")
-    console.log(response)
-    console.log(response.Subject)
-  }).fail(function(error){
-    console.log("Failed to get event")
-  });
-
 }
 
 
