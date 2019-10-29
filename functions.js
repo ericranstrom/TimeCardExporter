@@ -96,9 +96,9 @@ function getEventsForIds(ids) {
             }).fail(function(error){
               reject(new Error("Failed to get event " + id))
             });
-        })
+        });
         promises.push(p)
-    }
+    });
     return Promise.all(promises)
 }
 
