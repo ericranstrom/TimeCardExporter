@@ -1,4 +1,5 @@
 var CATEGORIES = []
+var ACCESS_TOKEN = ""
 
 // The initialize function must be run each time a new page is loaded
 Office.initialize = reason => {
@@ -10,10 +11,12 @@ function exportAppointments(event) {
     var buttonId = event.source.id;
     console.log('exportAppointments() called, buttonID: ' + buttonId);
     CATEGORIES = []
+    var ACCESS_TOKEN = ""
 
     getAccessToken()
-    .then(function(accessToken) {
-        return(getIDsForWeeklyEvents(accessToken))
+    .then(() => getIDsForWeeklyEvents())
+    .then(function(idArr) {
+        return getEventsForIds()
     })
     .finally(() => event.completed());
 }
@@ -22,8 +25,8 @@ function getAccessToken() {
     return new Promise((resolve, reject) => {
         Office.context.mailbox.getCallbackTokenAsync({isRest: true}, function(result){
             if (result.status === "succeeded") {
-                var accessToken = result.value;
-                resolve(accessToken);
+                ACCESS_TOKEN = result.value;
+                resolve();
              } else {
                 reject(new Error("Failed to get access token!"));
              }
@@ -38,7 +41,7 @@ function getWeeklyEvents(accessToken, callback) {
   $.ajax({
     url: getWeeklyEventsUrl,
     dataType: 'json',
-    headers: { 'Authorization': 'Bearer ' + accessToken }
+    headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN }
   }).done(function(response){
     console.log("Got the response from the rest api!")
 
@@ -55,14 +58,14 @@ function getWeeklyEvents(accessToken, callback) {
   });
 }
 
-function getIDsForWeeklyEvents(accessToken) {
+function getIDsForWeeklyEvents() {
     return new Promise((resolve, reject) => {
         var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
-        console.log("make request for event ids with " + accessToken)
+        console.log("make request for event ids with " + ACCESS_TOKEN)
         $.ajax({
             url: getWeeklyEventsUrl,
             dataType: 'json',
-            headers: { 'Authorization': 'Bearer ' + accessToken }
+            headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN }
           }).done(function(response){
             console.log("Got the response from the rest api!")
             var ids = []
@@ -87,7 +90,7 @@ function getEventItem(accessToken, id) {
   $.ajax({
     url: getEventUrl,
     dataType: 'json',
-    headers: { 'Authorization': 'Bearer ' + accessToken },
+    headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN },
     async: false
   }).done(function(response){
     console.log("Got the event response from the rest api!")
