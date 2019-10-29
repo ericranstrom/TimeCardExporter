@@ -11,9 +11,11 @@ function exportAppointments(event) {
     console.log('exportAppointments() called, buttonID: ' + buttonId);
     CATEGORIES = []
 
-    getAccessToken().then(function(accessToken) {
-        var eventIds = getIDsForWeeklyEvents(accessToken)
-     }).then(() => event.completed(), () => event.completed());
+    getAccessToken()
+    .then(function(accessToken) {
+        return(getIDsForWeeklyEvents(accessToken))
+    })
+    .finally(() => event.completed());
 }
 
 function getAccessToken() {
