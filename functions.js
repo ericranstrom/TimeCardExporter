@@ -12,11 +12,8 @@ function exportAppointments(event) {
     CATEGORIES = []
 
     getAccessToken().then(function(accessToken) {
-
-        getWeeklyEvents(accessToken, function() {
-             event.completed();
-         });
-     }).finally();
+        var eventIds = getIDsForWeeklyEvents(accessToken)
+     }).then(() => event.completed(), () => event.completed());
 }
 
 function getAccessToken() {
