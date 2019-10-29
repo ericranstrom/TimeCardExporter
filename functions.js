@@ -11,33 +11,11 @@ function exportAppointments(event) {
     console.log('exportAppointments() called, buttonID: ' + buttonId);
     CATEGORIES = []
 
-    var accessTokenPromice = new Promise(function(resolve, reject) {
-      setTimeout(function() {
-        resolve('foo');
-      }, 300);
-    });
-
-    promise1.then(function(value) {
-      console.log(value);
-      // expected output: "foo"
-    });
-
-    getAccessToken().then(getWeeklyEvents(accessToken, function() {
-                                    event.completed();
-                                  });)
-
-    Office.context.mailbox.getCallbackTokenAsync({isRest: true}, function(result){
-      if (result.status === "succeeded") {
-        var accessToken = result.value;
-        // Use the access token.
+    getAccessToken().then(function(accessToken) {
         getWeeklyEvents(accessToken, function() {
-          event.completed();
-        });
-      } else {
-        console.log("Failed to get access token!")
-        // Handle the error.
-      }
-    });
+             event.completed();
+         });
+     });
 }
 
 function getAccessToken() {
@@ -45,9 +23,9 @@ function getAccessToken() {
         Office.context.mailbox.getCallbackTokenAsync({isRest: true}, function(result){
             if (result.status === "succeeded") {
                 var accessToken = result.value;
-                resolve(accessToken)
+                resolve(accessToken);
              } else {
-                reject("Failed to get access token!")
+                reject(new Error("Failed to get access token!"));
              }
            });
     });
@@ -76,6 +54,7 @@ function getWeeklyEvents(accessToken, callback) {
     callback()
   });
 }
+
 //see response here https://docs.microsoft.com/en-us/previous-versions/office/office-365-api/api/version-2.0/calendar-rest-operations#GetEvent
 function getEventItem(accessToken, id) {
   var getEventUrl = Office.context.mailbox.restUrl + "/v2.0/me/events/"+id;
