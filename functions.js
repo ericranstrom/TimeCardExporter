@@ -80,6 +80,28 @@ function getIDsForWeeklyEvents() {
     });
 }
 
+function getEventsForIds(ids) {
+    var promises = []
+    ids.forEach(function (id, index) {
+        var getEventUrl = Office.context.mailbox.restUrl + "/v2.0/me/events/"+id;
+        var p = new Promise((resolve, reject) => {
+          $.ajax({
+              url: getEventUrl,
+              dataType: 'json',
+              headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN }
+            }).done(function(response){
+              console.log("Got the event response from the rest api!")
+              console.log(response.Subject)
+              resolve(event)
+            }).fail(function(error){
+              reject(new Error("Failed to get event " + id))
+            });
+        })
+        promises.push(p)
+    }
+    return Promise.all(promises)
+}
+
 //see response here https://docs.microsoft.com/en-us/previous-versions/office/office-365-api/api/version-2.0/calendar-rest-operations#GetEvent
 function getEventItem(accessToken, id) {
 
