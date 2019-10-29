@@ -11,6 +11,21 @@ function exportAppointments(event) {
     console.log('exportAppointments() called, buttonID: ' + buttonId);
     CATEGORIES = []
 
+    var accessTokenPromice = new Promise(function(resolve, reject) {
+      setTimeout(function() {
+        resolve('foo');
+      }, 300);
+    });
+
+    promise1.then(function(value) {
+      console.log(value);
+      // expected output: "foo"
+    });
+
+    getAccessToken().then(getWeeklyEvents(accessToken, function() {
+                                    event.completed();
+                                  });)
+
     Office.context.mailbox.getCallbackTokenAsync({isRest: true}, function(result){
       if (result.status === "succeeded") {
         var accessToken = result.value;
@@ -22,6 +37,19 @@ function exportAppointments(event) {
         console.log("Failed to get access token!")
         // Handle the error.
       }
+    });
+}
+
+function getAccessToken() {
+    return new Promise((resolve, reject) => {
+        Office.context.mailbox.getCallbackTokenAsync({isRest: true}, function(result){
+            if (result.status === "succeeded") {
+                var accessToken = result.value;
+                resolve(accessToken)
+             } else {
+                reject("Failed to get access token!")
+             }
+           });
     });
 }
 
