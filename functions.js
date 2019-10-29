@@ -56,6 +56,7 @@ function getWeeklyEvents(accessToken, callback) {
 function getIDsForWeeklyEvents(accessToken) {
     return new Promise((resolve, reject) => {
         var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
+        console.log("make request for event ids with " + accessToken)
         $.ajax({
             url: getWeeklyEventsUrl,
             dataType: 'json',
