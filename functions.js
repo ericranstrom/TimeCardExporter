@@ -95,7 +95,7 @@ function msToHumanReadable(ms) {
         var hours = parseInt(quarterHours/4, 10);
         quarterHours = quarterHours%4;
 
-        return hours + '.' + quarterHours;
+        return hours + '.' + (quarterHours * .25);
 }
 
 
