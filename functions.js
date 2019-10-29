@@ -72,7 +72,9 @@ function getEventsForIds(ids) {
               console.log(response.Categories)
               console.log(response.Start.DateTime)
               console.log(response.End.DateTime)
-              console.log((new Date(response.End.DateTime)).getTime() - (new Date(response.Start.DateTime)).getTime())
+              var meetingMillis = (new Date(response.End.DateTime)).getTime() - (new Date(response.Start.DateTime)).getTime()
+              console.log(meetingMillis)
+              console.log(msToHumanReadable(meetingMillis))
               console.log("*********************************")
               resolve(event)
             }).fail(function(error){
@@ -82,6 +84,18 @@ function getEventsForIds(ids) {
         promises.push(p)
     });
     return Promise.all(promises)
+}
+
+function msToHumanReadable(ms) {
+        var seconds = (ms/1000);
+        var minutes = parseInt(seconds/60, 10);
+        seconds = seconds%60;
+        var quarterHours = parseInt(minutes/15, 10);
+        minutes = minutes%15;
+        var hours = parseInt(quarterHours/4, 10);
+        quarterHours = quarterHours%4;
+
+        return hours + '.' + quarterHours;
 }
 
 
