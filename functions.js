@@ -1,3 +1,5 @@
+var CATEGORIES = []
+
 // The initialize function must be run each time a new page is loaded
 Office.initialize = reason => {
     console.log('Office init...' + reason);
@@ -7,6 +9,7 @@ Office.initialize = reason => {
 function exportAppointments(event) {
     var buttonId = event.source.id;
     console.log('exportAppointments() called, buttonID: ' + buttonId);
+    CATEGORIES = []
 
     Office.context.mailbox.getCallbackTokenAsync({isRest: true}, function(result){
       if (result.status === "succeeded") {
@@ -45,7 +48,7 @@ function getWeeklyEvents(accessToken, callback) {
     callback()
   });
 }
-
+//see response here https://docs.microsoft.com/en-us/previous-versions/office/office-365-api/api/version-2.0/calendar-rest-operations#GetEvent
 function getEventItem(accessToken, id) {
   var getEventUrl = Office.context.mailbox.restUrl + "/v2.0/me/events/"+id;
   $.ajax({
@@ -61,4 +64,39 @@ function getEventItem(accessToken, id) {
     console.log("Failed to get event")
   });
 
+}
+
+
+
+//Event Class Object
+function Event(subject, cateogry, startime, endtime) {
+    this.subject = subject;
+    this.duration = endtime.getTime() - starttime.gettime();
+}
+
+// Adding a method to the constructor
+Event.prototype.greet = function() {
+    return `${this.name} says hello.`;
+}
+
+function Category(name){
+  this.name = name
+  this.events = [];
+}
+Category.prototype = {
+  constructor:Event,
+  addEvent: function(event){
+    this.events.push(event)
+  }
+};
+
+function newEvent(categoryName, event){
+  var catIndex = CATEGORIES.indexOf(categoryName)
+  if (catIndex > -1) {
+    CATEGORIES[catIndex].addEvent(event)
+  } else {
+    var category = new Category(categoryName)
+    category.addEvent(event)
+    CATEGORIES.push(category)
+  }
 }
