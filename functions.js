@@ -72,7 +72,7 @@ function getEventsForIds(ids) {
               console.log(response.Categories)
               console.log(response.Start.DateTime)
               console.log(response.End.DateTime)
-              console.log(Date.parse(response.End.DateTime).getTime() - Date.parse(response.Start.DateTime).getTime())
+              console.log((new Date(response.End.DateTime)).getTime() - (new Date(response.Start.DateTime)).getTime())
               console.log("*********************************")
               resolve(event)
             }).fail(function(error){
