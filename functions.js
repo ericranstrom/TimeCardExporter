@@ -97,7 +97,7 @@ function getEventResponsesForIds(ids) {
 function getEventsForResponses(eventResponses) {
     var events = []
     eventResponses.forEach(function(eventResponse, index) {
-        console.log(eventResponses)
+        console.log(eventResponse)
         if (eventResponse.Categories.length > 0) {
             var event = new Event(eventResponse.Subject, eventResponse.Start.DateTime, eventResponse.End.DateTime)
             newEvent(eventResponse.Categories[0], event)
