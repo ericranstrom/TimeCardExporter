@@ -119,8 +119,11 @@ function Event(subject, starttime, endtime) {
 }
 
 // Adding a method to the constructor
-Event.prototype.greet = function() {
-    return `${this.name} says hello.`;
+Event.prototype = {
+    constructor:Event,
+    toString: function() {
+        return 'subject: ' + this.subject + ' duration: ' + msToHumanReadable(this.durationInMillis)
+    }
 }
 
 function Category(name){
@@ -128,9 +131,12 @@ function Category(name){
   this.events = [];
 }
 Category.prototype = {
-  constructor:Event,
+  constructor:Category,
   addEvent: function(event){
     this.events.push(event)
+  },
+  toString: function() {
+    return '' + this.name + ',' + this.events;
   }
 };
 
