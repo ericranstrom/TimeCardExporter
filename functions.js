@@ -155,7 +155,9 @@ function newEvent(categoryName, subject, starttime, endtime){
 }
 
 function getCategory(name){
+  console.log("looking for " + name)
   for (var i = 0; i < CATEGORIES.length; i+=1){
+     console.log("checking " + CATEGORIES[i])
      if(CATEGORIES[i].name === name){
        return CATEGORIES[i]
      }
