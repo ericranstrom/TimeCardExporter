@@ -14,9 +14,7 @@ function exportAppointments(event) {
 
     getAccessToken()
     .then(() => getIDsForWeeklyEvents())
-    .then(function(idArr) {
-        return getEventResponsesForIds(idArr)
-    })
+    .then(idArr => getEventResponsesForIds(idArr))
     .then(eventResponses => makeEventsForResponses(eventResponses))
     .then(() => console.log(CATEGORIES))
     .finally(() => event.completed());
