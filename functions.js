@@ -13,8 +13,8 @@ function exportAppointments(event) {
     var ACCESS_TOKEN = ""
 
     getAccessToken()
-    .then(() => getIDsForWeeklyEvents())
-    .then(idArr => getEventResponsesForIds(idArr))
+    .then(() => getResponsesForWeeklyEvents())
+    //.then(idArr => getEventResponsesForIds(idArr))
     .then(eventResponses => makeEventsForResponses(eventResponses))
     .then(() => CATEGORIES.forEach(function(cat, idx) {console.log(cat)}))
     .then(() => downloadCsv())
@@ -34,7 +34,7 @@ function getAccessToken() {
     });
 }
 
-function getIDsForWeeklyEvents() {
+function getResponsesForWeeklyEvents() {
     return new Promise((resolve, reject) => {
         var meetingDate = Office.context.mailbox.item.start;
         console.log(meetingDate)
@@ -49,14 +49,11 @@ function getIDsForWeeklyEvents() {
             dataType: 'json',
             headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN }
           }).done(function(response){
-            var ids = []
-            console.log(response.value)
+            var items = []
             response.value.forEach(function (item, index) {
-                ids.push(item.Id)
-                console.log(item.Subject)
+                items.push(item)
             });
-            console.log(ids)
-            resolve(ids)
+            resolve(items)
           }).fail(function(error){
             reject(new Error("Failed to get weekly events"))
           });
