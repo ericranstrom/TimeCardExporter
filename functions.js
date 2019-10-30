@@ -98,6 +98,24 @@ function makeEventsForResponses(eventResponses) {
     });
 }
 
+function downloadCsv() {
+    const rows = [
+        ["name1", "city1", "some other info"],
+        ["name2", "city2", "more info"]
+    ];
+
+    let csvContent = "data:text/csv;charset=utf-8,"
+        + rows.map(e => e.join(",")).join("\n");
+
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "my_data.csv");
+    document.body.appendChild(link); // Required for FF
+
+    link.click(); // This will download the data file named "my_data.csv".
+}
+
 function msToHumanReadable(ms) {
         var seconds = (ms/1000);
         var minutes = parseInt(seconds/60, 10);
@@ -135,6 +153,13 @@ Category.prototype = {
   addEvent: function(event){
     this.events.push(event)
   },
+  getHours: function() {
+    var sumOfDuration = 0
+    this.events.forEach(function(event, id){
+      sumOfDuration += event.durationInMillis
+    })
+    return msToHumanReadable(sumOfDuration)
+  }
   toString: function() {
     return '' + this.name + ',' + this.events;
   }
