@@ -41,6 +41,10 @@ function getAccessToken() {
 
 function getIDsForWeeklyEvents() {
     return new Promise((resolve, reject) => {
+        var start = Office.context.mailbox.item.start;
+        console.log(start)
+        console.log(getLastSunday(start))
+        console.log(getNextSaturday(start))
         var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
         console.log("make request for event ids with " + ACCESS_TOKEN)
         $.ajax({
@@ -146,4 +150,16 @@ function newEvent(categoryName, event){
     category.addEvent(event)
     CATEGORIES.push(category)
   }
+}
+
+function getLastSunday(d) {
+  var t = new Date(d);
+  t.setDate(t.getDate() - t.getDay());
+  return t;
+}
+
+function getNextSaturday(d) {
+  var t = new Date(d);
+  t.setDate(t.getDate() + (1 + 7 - t.getDay()) % 7);
+  return t;
 }
