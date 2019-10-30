@@ -79,7 +79,7 @@ function getEventResponsesForIds(ids) {
               console.log(meetingMillis)
               console.log(msToHumanReadable(meetingMillis))
               console.log("*********************************")
-              resolve(event)
+              resolve(response)
             }).fail(function(error){
               reject(new Error("Failed to get event " + id))
             });
