@@ -159,7 +159,7 @@ Category.prototype = {
       sumOfDuration += event.durationInMillis
     })
     return msToHumanReadable(sumOfDuration)
-  }
+  },
   toString: function() {
     return '' + this.name + ',' + this.events;
   }
