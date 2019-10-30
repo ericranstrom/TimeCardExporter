@@ -142,13 +142,22 @@ Category.prototype = {
 
 function newEvent(categoryName, subject, starttime, endtime){
   var event = new Event(subject, starttime, endtime)
-  var catIndex = CATEGORIES.indexOf(categoryName)
-  if (catIndex > -1) {
-    CATEGORIES[catIndex].addEvent(event)
-  } else {
-    var category = new Category(categoryName)
+  var category = getCategory(name)
+  if (category === null) {
+     category = new Category(categoryName)
+     category.addEvent(event)
+     CATEGORIES.push(category)
+  }
+  else {
     category.addEvent(event)
-    CATEGORIES.push(category)
+  }
+}
+
+function getCategory(name){
+  for (var i = 0; i < CATEGORIES.length; i+=1){
+     if(CATEGORIES[i].name == name){
+       return CATEGORIES[i]
+     }
   }
 }
 
