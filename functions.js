@@ -37,11 +37,8 @@ function getAccessToken() {
 function getResponsesForWeeklyEvents() {
     return new Promise((resolve, reject) => {
         var meetingDate = Office.context.mailbox.item.start;
-        console.log(meetingDate)
         var priorSun = getLastSunday(meetingDate)
-        console.log(priorSun)
         var proceedingSun = getNextSunday(meetingDate)
-        console.log(proceedingSun)
         var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?enddatetime=" + proceedingSun.toISOString() + "&startdatetime=" + priorSun.toISOString() + "&$select=Id,Subject,Categories,Start,End&$top=1000";
         $.ajax({
             url: getWeeklyEventsUrl,
@@ -83,7 +80,10 @@ function downloadCsv() {
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "my_data.csv");
+    var meetingDate = Office.context.mailbox.item.start;
+    var priorSun = getLastSunday(meetingDate)
+    var proceedingSun = getNextSunday(meetingDate)
+    link.setAttribute("download", priorSun.getMonth()+"_"+priorSun.getDate()+"_to_"+proceedingSun.getMonth()+"_"+proceedingSun.getDate()+".csv");
     document.body.appendChild(link); // Required for FF
 
     link.click(); // This will download the data file named "my_data.csv".
