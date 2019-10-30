@@ -9,7 +9,6 @@ Office.initialize = reason => {
 // Add any ui-less function here
 function exportAppointments(event) {
     var buttonId = event.source.id;
-    console.log('exportAppointments() called, buttonID: ' + buttonId);
     CATEGORIES = []
     var ACCESS_TOKEN = ""
 
@@ -41,23 +40,23 @@ function getAccessToken() {
 
 function getIDsForWeeklyEvents() {
     return new Promise((resolve, reject) => {
-        var start = Office.context.mailbox.item.start;
-        console.log(start)
-        console.log(getLastSunday(start))
-        console.log(getNextSaturday(start))
-        var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
-        console.log("make request for event ids with " + ACCESS_TOKEN)
+        var meetingDate = Office.context.mailbox.item.start;
+        console.log(meetingDate)
+        var priorSun = getLastSunday(meetingDate)
+        console.log(priorSun)
+        var proceedingSun = getNextSunday(meetingDate)
+        console.log(proceedingSun)
+        //var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
+        var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=" + priorSun + "&enddatetime=" + proceedingSun;
         $.ajax({
             url: getWeeklyEventsUrl,
             dataType: 'json',
             headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN }
           }).done(function(response){
-            console.log("Got the response from the rest api!")
             var ids = []
             response.value.forEach(function (item, index) {
                 ids.push(item.Id)
             });
-            console.log(ids)
             resolve(ids)
           }).fail(function(error){
             reject(new Error("Failed to get weekly events"))
@@ -98,6 +97,7 @@ function getEventResponsesForIds(ids) {
 function getEventsForResponses(eventResponses) {
     var events = []
     eventResponses.forEach(function(eventResponse, index) {
+        console.log(eventResponses)
         if (eventResponse.Categories.length > 0) {
             var event = new Event(eventResponse.Subject, eventResponse.Start.DateTime, eventResponse.End.DateTime)
             newEvent(eventResponse.Categories[0], event)
@@ -158,7 +158,7 @@ function getLastSunday(d) {
   return t;
 }
 
-function getNextSaturday(d) {
+function getNextSunday(d) {
   var t = new Date(d);
   t.setDate(t.getDate() + (7 - t.getDay()) % 7);
   return t;
