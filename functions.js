@@ -94,14 +94,16 @@ function getEventResponsesForIds(ids) {
     return Promise.all(promises)
 }
 
-function getEventsForResponses(eventResponses) {
-    var events = []
-    eventResponses.forEach(function(eventResponse, index) {
-        console.log(eventResponse)
-        if (eventResponse.Categories.length > 0) {
-            var event = new Event(eventResponse.Subject, eventResponse.Start.DateTime, eventResponse.End.DateTime)
-            newEvent(eventResponse.Categories[0], event)
-        }
+function getEventsForResponses(eventResponsePromises) {
+    eventResponsePromises.forEach(function(p, index) {
+        p.then(eventResponse => {
+            console.log(eventResponse)
+            if (eventResponse.Categories.length > 0) {
+              var event = new Event(eventResponse.Subject, eventResponse.Start.DateTime, eventResponse.End.DateTime)
+              newEvent(eventResponse.Categories[0], event)
+            }
+        })
+
     });
 }
 
