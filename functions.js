@@ -142,7 +142,7 @@ Category.prototype = {
 
 function newEvent(categoryName, subject, starttime, endtime){
   var event = new Event(subject, starttime, endtime)
-  var category = getCategory(name)
+  var category = getCategory(categoryName)
   console.log(category)
   if (category === undefined) {
      category = new Category(categoryName)
