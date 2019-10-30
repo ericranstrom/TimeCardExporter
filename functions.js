@@ -17,11 +17,8 @@ function exportAppointments(event) {
     .then(function(idArr) {
         return getEventResponsesForIds(idArr)
     })
-    .then(function(eventResponses){
-        return getEventsForResponses(eventResponses)
-    }).then(() => {
-        console.log(CATEGORIES)
-    })
+    .then(eventResponses => makeEventsForResponses(eventResponses)
+    .then(() => console.log(CATEGORIES))
     .finally(() => event.completed());
 }
 
@@ -94,15 +91,13 @@ function getEventResponsesForIds(ids) {
     return Promise.all(promises)
 }
 
-function getEventsForResponses(eventResponsePromises) {
-    eventResponsePromises.forEach(function(p, index) {
-        p.then(eventResponse => {
+function makeEventsForResponses(eventResponses) {
+    eventResponses.forEach(function(eventResponse, index) {
             console.log(eventResponse)
             if (eventResponse.Categories.length > 0) {
               var event = new Event(eventResponse.Subject, eventResponse.Start.DateTime, eventResponse.End.DateTime)
               newEvent(eventResponse.Categories[0], event)
             }
-        })
 
     });
 }
