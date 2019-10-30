@@ -17,7 +17,7 @@ function exportAppointments(event) {
     .then(function(idArr) {
         return getEventResponsesForIds(idArr)
     })
-    .then(eventResponses => makeEventsForResponses(eventResponses)
+    .then(eventResponses => makeEventsForResponses(eventResponses))
     .then(() => console.log(CATEGORIES))
     .finally(() => event.completed());
 }
