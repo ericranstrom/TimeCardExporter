@@ -14,7 +14,6 @@ function exportAppointments(event) {
 
     getAccessToken()
     .then(() => getResponsesForWeeklyEvents())
-    //.then(idArr => getEventResponsesForIds(idArr))
     .then(eventResponses => makeEventsForResponses(eventResponses))
     .then(() => CATEGORIES.forEach(function(cat, idx) {console.log(cat)}))
     .then(() => downloadCsv())
@@ -34,6 +33,7 @@ function getAccessToken() {
     });
 }
 
+//see response here https://docs.microsoft.com/en-us/previous-versions/office/office-365-api/api/version-2.0/calendar-rest-operations#GetEvent
 function getResponsesForWeeklyEvents() {
     return new Promise((resolve, reject) => {
         var meetingDate = Office.context.mailbox.item.start;
@@ -42,7 +42,6 @@ function getResponsesForWeeklyEvents() {
         console.log(priorSun)
         var proceedingSun = getNextSunday(meetingDate)
         console.log(proceedingSun)
-        //var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
         var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?enddatetime=" + proceedingSun.toISOString() + "&startdatetime=" + priorSun.toISOString() + "&$select=Id,Subject,Categories,Start,End&$top=1000";
         $.ajax({
             url: getWeeklyEventsUrl,
@@ -58,36 +57,6 @@ function getResponsesForWeeklyEvents() {
             reject(new Error("Failed to get weekly events"))
           });
     });
-}
-
-//see response here https://docs.microsoft.com/en-us/previous-versions/office/office-365-api/api/version-2.0/calendar-rest-operations#GetEvent
-function getEventResponsesForIds(ids) {
-    var promises = []
-    ids.forEach(function (id, index) {
-        var getEventUrl = Office.context.mailbox.restUrl + "/v2.0/me/events/"+id;
-        var p = new Promise((resolve, reject) => {
-          $.ajax({
-              url: getEventUrl,
-              dataType: 'json',
-              headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN }
-            }).done(function(response){
-              console.log("Got the event response from the rest api!")
-              console.log(response.Subject)
-              console.log(response.Categories)
-              console.log(response.Start.DateTime)
-              console.log(response.End.DateTime)
-              var meetingMillis = (new Date(response.End.DateTime)).getTime() - (new Date(response.Start.DateTime)).getTime()
-              console.log(meetingMillis)
-              console.log(msToHumanReadable(meetingMillis))
-              console.log("*********************************")
-              resolve(response)
-            }).fail(function(error){
-              reject(new Error("Failed to get event " + id))
-            });
-        });
-        promises.push(p)
-    });
-    return Promise.all(promises)
 }
 
 function makeEventsForResponses(eventResponses) {
