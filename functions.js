@@ -115,7 +115,7 @@ function msToHumanReadable(ms) {
 
 
 //Event Class Object
-function Event(subject, startime, endtime) {
+function Event(subject, starttime, endtime) {
     this.subject = subject;
     this.durationInMillis = (new Date(endtime)).getTime() - (new Date(starttime)).getTime()
 }
