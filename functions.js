@@ -91,10 +91,8 @@ function getEventResponsesForIds(ids) {
 
 function makeEventsForResponses(eventResponses) {
     eventResponses.forEach(function(eventResponse, index) {
-            console.log(eventResponse)
             if (eventResponse.Categories.length > 0) {
-              var event = new Event(eventResponse.Subject, eventResponse.Start.DateTime, eventResponse.End.DateTime)
-              newEvent(eventResponse.Categories[0], event)
+              newEvent(eventResponse.Categories[0], eventResponse.Subject, eventResponse.Start.DateTime, eventResponse.End.DateTime)
             }
 
     });
@@ -136,7 +134,8 @@ Category.prototype = {
   }
 };
 
-function newEvent(categoryName, event){
+function newEvent(categoryName, subject, starttime, endtime){
+  var event = new Event(subject, starttime, endtime)
   var catIndex = CATEGORIES.indexOf(categoryName)
   if (catIndex > -1) {
     CATEGORIES[catIndex].addEvent(event)
