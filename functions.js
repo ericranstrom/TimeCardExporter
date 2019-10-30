@@ -100,10 +100,13 @@ function makeEventsForResponses(eventResponses) {
 }
 
 function downloadCsv() {
-    const rows = [
-        ["name1", "city1", "some other info"],
-        ["name2", "city2", "more info"]
-    ];
+    const rows = []
+    CATEGORIES.forEach(function (cat, id) {
+        row = []
+        row.push(cat.name)
+        row.push(cat.getHours())
+        rows.push(row)
+    });
 
     let csvContent = "data:text/csv;charset=utf-8,"
         + rows.map(e => e.join(",")).join("\n");
