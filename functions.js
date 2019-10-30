@@ -107,7 +107,7 @@ function msToHumanReadable(ms) {
         var hours = parseInt(quarterHours/4, 10);
         quarterHours = quarterHours%4;
 
-        return hours + '.' + (quarterHours * .25);
+        return parseInt(hours) + '.' + (quarterHours * .25);
 }
 
 
@@ -155,9 +155,7 @@ function newEvent(categoryName, subject, starttime, endtime){
 }
 
 function getCategory(name){
-  console.log("looking for " + name)
   for (var i = 0; i < CATEGORIES.length; i+=1){
-     console.log("checking " + CATEGORIES[i])
      if(CATEGORIES[i].name === name){
        return CATEGORIES[i]
      }
