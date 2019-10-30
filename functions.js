@@ -16,7 +16,12 @@ function exportAppointments(event) {
     getAccessToken()
     .then(() => getIDsForWeeklyEvents())
     .then(function(idArr) {
-        return getEventsForIds(idArr)
+        return getEventResponsesForIds(idArr)
+    })
+    .then(function(eventResponses){
+        return getEventsForResponses(eventResponses)
+    }).then(() => {
+        console.log(CATEGORIES)
     })
     .finally(() => event.completed());
 }
@@ -57,7 +62,7 @@ function getIDsForWeeklyEvents() {
 }
 
 //see response here https://docs.microsoft.com/en-us/previous-versions/office/office-365-api/api/version-2.0/calendar-rest-operations#GetEvent
-function getEventsForIds(ids) {
+function getEventResponsesForIds(ids) {
     var promises = []
     ids.forEach(function (id, index) {
         var getEventUrl = Office.context.mailbox.restUrl + "/v2.0/me/events/"+id;
@@ -86,6 +91,16 @@ function getEventsForIds(ids) {
     return Promise.all(promises)
 }
 
+function getEventsForResponses(eventResponses) {
+    var events = []
+    eventResponses.foreach(function(eventResponse, index) {
+        if (eventResponse.Categories.length > 0) {
+            var event = new Event(eventResponse.Subject, eventResponse.Start.DateTime, eventResponse.End.DateTime)
+            newEvent(eventResponse.Categories[0], event)
+        }
+    });
+}
+
 function msToHumanReadable(ms) {
         var seconds = (ms/1000);
         var minutes = parseInt(seconds/60, 10);
@@ -101,9 +116,9 @@ function msToHumanReadable(ms) {
 
 
 //Event Class Object
-function Event(subject, cateogry, startime, endtime) {
+function Event(subject, startime, endtime) {
     this.subject = subject;
-    this.duration = endtime.getTime() - starttime.gettime();
+    this.durationInMillis = (new Date(endtime)).getTime() - (new Date(starttime)).getTime()
 }
 
 // Adding a method to the constructor
