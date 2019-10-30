@@ -53,6 +53,7 @@ function getIDsForWeeklyEvents() {
             console.log(response.value)
             response.value.forEach(function (item, index) {
                 ids.push(item.Id)
+                console.log(item.Subject)
             });
             console.log(ids)
             resolve(ids)
