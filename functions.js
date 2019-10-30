@@ -97,7 +97,7 @@ function getEventResponsesForIds(ids) {
 
 function getEventsForResponses(eventResponses) {
     var events = []
-    eventResponses.foreach(function(eventResponse, index) {
+    eventResponses.forEach(function(eventResponse, index) {
         if (eventResponse.Categories.length > 0) {
             var event = new Event(eventResponse.Subject, eventResponse.Start.DateTime, eventResponse.End.DateTime)
             newEvent(eventResponse.Categories[0], event)
@@ -160,6 +160,6 @@ function getLastSunday(d) {
 
 function getNextSaturday(d) {
   var t = new Date(d);
-  t.setDate(t.getDate() + (1 + 7 - t.getDay()) % 7);
+  t.setDate(t.getDate() + (7 - t.getDay()) % 7);
   return t;
 }
