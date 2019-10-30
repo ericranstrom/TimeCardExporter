@@ -17,6 +17,7 @@ function exportAppointments(event) {
     .then(idArr => getEventResponsesForIds(idArr))
     .then(eventResponses => makeEventsForResponses(eventResponses))
     .then(() => CATEGORIES.forEach(function(cat, idx) {console.log(cat)}))
+    .then(() => downloadCsv())
     .finally(() => event.completed());
 }
 
