@@ -43,16 +43,18 @@ function getIDsForWeeklyEvents() {
         var proceedingSun = getNextSunday(meetingDate)
         console.log(proceedingSun)
         //var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=2019-10-27T04:31:00.376Z&enddatetime=2019-11-03T04:31:00.376Z";
-        var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=" + priorSun.toISOString() + "&enddatetime=" + proceedingSun.toISOString();
+        var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?startdatetime=" + priorSun.toISOString() + "&enddatetime=" + proceedingSun.toISOString()+"&$select=Id";
         $.ajax({
             url: getWeeklyEventsUrl,
             dataType: 'json',
             headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN }
           }).done(function(response){
             var ids = []
+            console.log(response.value)
             response.value.forEach(function (item, index) {
                 ids.push(item.Id)
             });
+            console.log(ids)
             resolve(ids)
           }).fail(function(error){
             reject(new Error("Failed to get weekly events"))
