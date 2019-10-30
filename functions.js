@@ -82,8 +82,7 @@ function downloadCsv() {
     link.setAttribute("href", encodedUri);
     var meetingDate = Office.context.mailbox.item.start;
     var priorSun = getLastSunday(meetingDate)
-    var proceedingSun = getNextSunday(meetingDate)
-    link.setAttribute("download", priorSun.getMonth()+"_"+priorSun.getDate()+"_to_"+proceedingSun.getMonth()+"_"+proceedingSun.getDate()+".csv");
+    link.setAttribute("download", "week_of_"+priorSun.getMonth()+"_"+priorSun.getDate()+".csv");
     document.body.appendChild(link); // Required for FF
 
     link.click(); // This will download the data file named "my_data.csv".
