@@ -16,7 +16,7 @@ function exportAppointments(event) {
     .then(() => getIDsForWeeklyEvents())
     .then(idArr => getEventResponsesForIds(idArr))
     .then(eventResponses => makeEventsForResponses(eventResponses))
-    .then(() => console.log(CATEGORIES))
+    .then(() => CATEGORIES.forEach(function(cat, idx) {console.log(CATEGORIES))}))
     .finally(() => event.completed());
 }
 
