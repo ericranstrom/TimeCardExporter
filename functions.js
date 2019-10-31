@@ -66,6 +66,17 @@ function makeEventsForResponses(eventResponses) {
 
 function downloadCsv() {
     const rows = []
+    var headers = []
+    headers.push('name')
+    headers.push('memo')
+    headers.push('sun')
+    headers.push('mon')
+    headers.push('tues')
+    headers.push('wed')
+    headers.push('thurs')
+    headers.push('fri')
+    headers.push('sat')
+    rows.push(headers)
     CATEGORIES.forEach(function (cat, id) {
         rows.push(cat.toList())
     });
@@ -116,13 +127,16 @@ Event.prototype = {
 function Category(name){
   this.name = name
   this.memo = ""
+  this.sun = 0;
   this.mon = 0;
   this.tues = 0;
   this.wed = 0;
   this.thurs = 0;
   this.fri = 0;
+  this.sat = 0;
   this.events = [];
 }
+
 Category.prototype = {
   constructor:Category,
   addEvent: function(event){
@@ -136,10 +150,10 @@ Category.prototype = {
     return msToHumanReadable(sumOfDuration)
   },
   toList: function() {
-    //get event times
-    this.events.forEach(function(event,id){
+    //processEvents
+    this.events.forEach(function(event, id){
         this.memo += event.subject;
-        switch(event.start.getDay) {
+        switch(event.start.getDay()) {
           case 1: //monday
             this.mon += event.durationInMillis;
             break;
@@ -163,11 +177,13 @@ Category.prototype = {
     row = []
     row.push(this.name)
     row.push(this.memo)
+    row.push(msToHumanReadable(this.sun))
     row.push(msToHumanReadable(this.mon))
     row.push(msToHumanReadable(this.tues))
     row.push(msToHumanReadable(this.wed))
     row.push(msToHumanReadable(this.thurs))
     row.push(msToHumanReadable(this.fri))
+    row.push(msToHumanReadable(this.sat))
     return(row)
   },
   toString: function() {
