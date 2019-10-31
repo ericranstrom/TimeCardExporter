@@ -152,6 +152,7 @@ Category.prototype = {
   toList: function() {
     //processEvents
     this.events.forEach(function(event, id){
+        console.log(event)
         this.memo += event.subject;
         switch(event.start.getDay()) {
           case 1: //monday
