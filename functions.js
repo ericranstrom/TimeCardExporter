@@ -147,7 +147,9 @@ Category.prototype = {
     this.events.forEach(function(event, id){
         console.log(event)
         console.log(event.subject + '\n')
-        this.memo = this.memo + event.subject + '\n';
+        console.log("memo = " + this.memo)
+        this.memo += event.subject + '\n';
+        console.log("memo = " + this.memo)
         console.log(event.start.getDay())
         switch(event.start.getDay()) {
           case 1: //monday
