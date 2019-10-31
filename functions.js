@@ -126,7 +126,7 @@ Event.prototype = {
 
 function Category(name){
   this.name = name;
-  this.memo = '';
+  this.memo = ' ';
   this.sun = 0;
   this.mon = 0;
   this.tues = 0;
