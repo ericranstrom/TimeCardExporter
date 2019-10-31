@@ -153,7 +153,10 @@ Category.prototype = {
     //processEvents
     this.events.forEach(function(event, id){
         console.log(event)
-        this.memo += event.subject;
+        consoel.log(event.subject + '\n')
+        this.memo += event.subject + '\n';
+        this.memo += '\n'
+        console.log(event.start.getDay())
         switch(event.start.getDay()) {
           case 1: //monday
             this.mon += event.durationInMillis;
