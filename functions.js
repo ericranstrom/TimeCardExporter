@@ -126,7 +126,7 @@ Event.prototype = {
 
 function Category(name){
   this.name = name;
-  this.memo = ' ';
+  this.subjects = [];
   this.sun = 0;
   this.mon = 0;
   this.tues = 0;
@@ -145,7 +145,7 @@ Category.prototype = {
   toList: function() {
     //processEvents
     this.events.forEach(function(event, id){
-        this.memo += event.subject + ' | ';
+        this.subjects.push(event.subject);
         switch(event.start.getDay()) {
           case 1: //monday
             this.mon += event.durationInMillis;
@@ -169,7 +169,7 @@ Category.prototype = {
 
     row = []
     row.push(this.name)
-    row.push(this.memo)
+    row.push(this.subjects.join(" | "))
     row.push(msToHumanReadable(this.sun))
     row.push(msToHumanReadable(this.mon))
     row.push(msToHumanReadable(this.tues))
