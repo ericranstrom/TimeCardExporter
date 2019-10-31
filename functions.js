@@ -125,8 +125,8 @@ Event.prototype = {
 }
 
 function Category(name){
-  this.name = name
-  this.memo = ""
+  this.name = name;
+  this.memo = '';
   this.sun = 0;
   this.mon = 0;
   this.tues = 0;
@@ -142,13 +142,6 @@ Category.prototype = {
   addEvent: function(event){
     this.events.push(event)
   },
-  getHours: function() {
-    var sumOfDuration = 0
-    this.events.forEach(function(event, id){
-      sumOfDuration += event.durationInMillis
-    })
-    return msToHumanReadable(sumOfDuration)
-  },
   toList: function() {
     //processEvents
     this.events.forEach(function(event, id){
@@ -159,7 +152,7 @@ Category.prototype = {
         switch(event.start.getDay()) {
           case 1: //monday
             console.log("mon")
-            this.mon = event.durationInMillis;
+            this.mon += event.durationInMillis;
             break;
           case 2: //tuesday
             console.log("tues")
