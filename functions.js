@@ -144,7 +144,9 @@ Category.prototype = {
   },
   toList: function() {
     //processEvents
+    console.log("this = " + this)
     this.events.forEach(function(event, id){
+        console.log("this = " + this)
         console.log(event)
         console.log(event.subject + '\n')
         console.log("memo = " + this.memo)
