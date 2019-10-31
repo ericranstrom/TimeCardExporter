@@ -144,40 +144,28 @@ Category.prototype = {
   },
   toList: function() {
     //processEvents
-    console.log("this = " + this)
     this.events.forEach(function(event, id){
-        console.log("this = " + this)
-        console.log(event)
-        console.log(event.subject + '\n')
-        console.log("memo = " + this.memo)
         this.memo += event.subject + '\n';
-        console.log("memo = " + this.memo)
-        console.log(event.start.getDay())
         switch(event.start.getDay()) {
           case 1: //monday
-            console.log("mon")
             this.mon += event.durationInMillis;
             break;
           case 2: //tuesday
-            console.log("tues")
             this.tues += event.durationInMillis;
             break;
           case 3: //wednesday
-            console.log("wed")
             this.wed += event.durationInMillis;
             break;
           case 4: //thursday
-            console.log("thurs")
             this.thurs += event.durationInMillis;
             break;
           case 5: //friday
-            console.log("fri")
             this.fri += event.durationInMillis;
             break;
           default:
             // code block
         }
-    })
+    }, this)
 
     row = []
     row.push(this.name)
