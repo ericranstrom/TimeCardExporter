@@ -68,10 +68,7 @@ function makeEventsForResponses(eventResponses) {
 function downloadCsv() {
     const rows = []
     CATEGORIES.forEach(function (cat, id) {
-        row = []
-        row.push(cat.name)
-        row.push(cat.getHours())
-        rows.push(row)
+        rows.push(cat.toList())
     });
 
     let csvContent = "data:text/csv;charset=utf-8,"
@@ -105,6 +102,7 @@ function msToHumanReadable(ms) {
 //Event Class Object
 function Event(subject, starttime, endtime) {
     this.subject = subject;
+    this.start = new Date(starttime);
     this.durationInMillis = (new Date(endtime)).getTime() - (new Date(starttime)).getTime()
 }
 
@@ -118,6 +116,12 @@ Event.prototype = {
 
 function Category(name){
   this.name = name
+  this.memo = ""
+  this.mon = 0;
+  this.tues = 0;
+  this.wed = 0;
+  this.thurs = 0;
+  this.fri = 0;
   this.events = [];
 }
 Category.prototype = {
@@ -131,6 +135,40 @@ Category.prototype = {
       sumOfDuration += event.durationInMillis
     })
     return msToHumanReadable(sumOfDuration)
+  },
+  toList: function() {
+    //get event times
+    this.events.forEach(function(event,id){
+        memo += event.subject;
+        switch(event.start.getDay) {
+          case 1: //monday
+            this.mon += event.durationInMillis;
+            break;
+          case 2: //tuesday
+            this.tues += event.durationInMillis;
+            break;
+          case 3: //wednesday
+            this.wed += event.durationInMillis;
+            break;
+          case 4: //thursday
+            this.thurs += event.durationInMillis;
+            break;
+          case 5: //friday
+            this.fri += event.durationInMillis;
+            break;
+          default:
+            // code block
+        }
+    })
+
+    row = []
+    row.push(cat.name)
+    row.push(memo)
+    row.push(msToHumanReadable(this.mon))
+    row.push(msToHumanReadable(this.tues))
+    row.push(msToHumanReadable(this.wed))
+    row.push(msToHumanReadable(this.thurs))
+    row.push(msToHumanReadable(this.fri))
   },
   toString: function() {
     return '' + this.name + ',' + this.events;
