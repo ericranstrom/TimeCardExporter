@@ -169,7 +169,7 @@ Category.prototype = {
 
     row = []
     row.push(this.name)
-    row.push(escape(this.memo))
+    row.push(this.memo)
     row.push(msToHumanReadable(this.sun))
     row.push(msToHumanReadable(this.mon))
     row.push(msToHumanReadable(this.tues))
