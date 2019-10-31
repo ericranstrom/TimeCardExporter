@@ -145,7 +145,7 @@ Category.prototype = {
   toList: function() {
     //processEvents
     this.events.forEach(function(event, id){
-        this.memo += event.subject + '\\n';
+        this.memo += event.subject + ' | ';
         switch(event.start.getDay()) {
           case 1: //monday
             this.mon += event.durationInMillis;

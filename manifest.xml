@@ -10,7 +10,7 @@
   <HighResolutionIconUrl DefaultValue="https://ericranstrom.github.io/TimeCardExporter/assets/icon-80.png"/>
   <SupportUrl DefaultValue="https://www.google.com"/>
   <AppDomains>
-    <AppDomain>contoso.com</AppDomain>
+    <AppDomain>ericranstrom.github.io</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Mailbox"/>
@@ -23,7 +23,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://ericranstrom.github.io/TimeCardExporter/taskpane.html"/>
+        <SourceLocation DefaultValue="https://ericranstrom.github.io/TimeCardExporter/functions.html"/>
         <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -47,21 +47,6 @@
             <OfficeTab id="TabDefault">
               <Group id="apptOrgReadGroup">
                 <Label resid="GroupLabel"/>
-                <Control xsi:type="Button" id="TaskPaneButton1">
-                  <Label resid="TaskpaneButton.Label"/>
-                  <Supertip>
-                    <Title resid="TaskpaneButton.Label"/>
-                    <Description resid="TaskpaneButton.Tooltip"/>
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="Icon.16x16"/>
-                    <bt:Image size="32" resid="Icon.32x32"/>
-                    <bt:Image size="80" resid="Icon.80x80"/>
-                  </Icon>
-                  <Action xsi:type="ShowTaskpane">
-                    <SourceLocation resid="Taskpane.Url"/>
-                  </Action>
-                </Control>
                 <Control xsi:type="Button" id="ExportButton1">
                   <Label resid="ActionButton.Label"/>
                   <Supertip>
@@ -84,21 +69,6 @@
             <OfficeTab id="TabDefault">
               <Group id="apptAttndReadGroup">
                 <Label resid="GroupLabel"/>
-                <Control xsi:type="Button" id="TaskPaneButton2">
-                  <Label resid="TaskpaneButton.Label"/>
-                  <Supertip>
-                    <Title resid="TaskpaneButton.Label"/>
-                    <Description resid="TaskpaneButton.Tooltip"/>
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="Icon.16x16"/>
-                    <bt:Image size="32" resid="Icon.32x32"/>
-                    <bt:Image size="80" resid="Icon.80x80"/>
-                  </Icon>
-                  <Action xsi:type="ShowTaskpane">
-                    <SourceLocation resid="Taskpane.Url"/>
-                  </Action>
-                </Control>
                 <Control xsi:type="Button" id="ExportButton2">
                   <Label resid="ActionButton.Label"/>
                   <Supertip>
@@ -128,16 +98,13 @@
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Functions.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/functions.html"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://ericranstrom.github.io/TimeCardExporter/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="Time Card Exporter"/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Show Taskpane"/>
         <bt:String id="ActionButton.Label" DefaultValue="Export"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Opens a pane displaying all available properties."/>
-        <bt:String id="ActionButton.Tooltip" DefaultValue="Perform an action when clicked."/>
+        <bt:String id="ActionButton.Tooltip" DefaultValue="Export the time card for the current week."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
