@@ -15,7 +15,6 @@ function exportAppointments(event) {
     getAccessToken()
     .then(() => getResponsesForWeeklyEvents())
     .then(eventResponses => makeEventsForResponses(eventResponses))
-    .then(() => CATEGORIES.forEach(function(cat, idx) {console.log(cat)}))
     .then(() => downloadCsv())
     .finally(() => event.completed());
 }
@@ -162,8 +161,8 @@ Category.prototype = {
     })
 
     row = []
-    row.push(cat.name)
-    row.push(memo)
+    row.push(this.name)
+    row.push(this.memo)
     row.push(msToHumanReadable(this.mon))
     row.push(msToHumanReadable(this.tues))
     row.push(msToHumanReadable(this.wed))
