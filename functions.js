@@ -168,6 +168,7 @@ Category.prototype = {
     row.push(msToHumanReadable(this.wed))
     row.push(msToHumanReadable(this.thurs))
     row.push(msToHumanReadable(this.fri))
+    return(row)
   },
   toString: function() {
     return '' + this.name + ',' + this.events;
