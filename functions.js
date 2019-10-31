@@ -139,7 +139,7 @@ Category.prototype = {
   toList: function() {
     //get event times
     this.events.forEach(function(event,id){
-        memo += event.subject;
+        this.memo += event.subject;
         switch(event.start.getDay) {
           case 1: //monday
             this.mon += event.durationInMillis;
