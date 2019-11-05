@@ -36,11 +36,8 @@ function getAccessToken() {
 function getResponsesForWeeklyEvents() {
     return new Promise((resolve, reject) => {
         var meetingDate = Office.context.mailbox.item.start;
-        console.log(meetingDate)
         var priorSun = getLastSunday(meetingDate)
-        console.log(priorSun)
         var proceedingSat = getNextSaturday(meetingDate)
-        console.log(proceedingSat)
         var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?enddatetime=" + proceedingSat.toISOString() + "&startdatetime=" + priorSun.toISOString() + "&$select=Id,Subject,Categories,Start,End&$top=1000";
         $.ajax({
             url: getWeeklyEventsUrl,
@@ -92,7 +89,7 @@ function downloadCsv() {
     link.setAttribute("href", encodedUri);
     var meetingDate = Office.context.mailbox.item.start;
     var priorSun = getLastSunday(meetingDate)
-    link.setAttribute("download", "week_of_"+priorSun.getYear() + "_" + priorSun.getMonth()+"_"+priorSun.getDate()+".csv");
+    link.setAttribute("download", "week_of_"+ priorSun.getFullYear() + "_" + priorSun.getMonth()+"_"+priorSun.getDate()+".csv");
     document.body.appendChild(link); // Required for FF
 
     link.click(); // This will download the data file named "my_data.csv".
@@ -150,6 +147,9 @@ Category.prototype = {
     this.events.forEach(function(event, id){
         this.subjects.push(event.subject);
         switch(event.start.getDay()) {
+          case 0: //sunday
+            this.sun += event.durationInMillis;
+            break;
           case 1: //monday
             this.mon += event.durationInMillis;
             break;
@@ -164,6 +164,9 @@ Category.prototype = {
             break;
           case 5: //friday
             this.fri += event.durationInMillis;
+            break;
+          case 6: //saturday
+            this.sat += event.durationInMillis;
             break;
           default:
             // code block
