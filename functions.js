@@ -39,9 +39,9 @@ function getResponsesForWeeklyEvents() {
         console.log(meetingDate)
         var priorSun = getLastSunday(meetingDate)
         console.log(priorSun)
-        var proceedingSun = getNextSunday(meetingDate)
-        console.log(proceedingSun)
-        var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?enddatetime=" + proceedingSun.toISOString() + "&startdatetime=" + priorSun.toISOString() + "&$select=Id,Subject,Categories,Start,End&$top=1000";
+        var proceedingSat = getNextSaturday(meetingDate)
+        console.log(proceedingSat)
+        var getWeeklyEventsUrl = Office.context.mailbox.restUrl + "/v2.0/me/calendarview?enddatetime=" + proceedingSat.toISOString() + "&startdatetime=" + priorSun.toISOString() + "&$select=Id,Subject,Categories,Start,End&$top=1000";
         $.ajax({
             url: getWeeklyEventsUrl,
             dataType: 'json',
