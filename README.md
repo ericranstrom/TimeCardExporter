@@ -19,7 +19,7 @@ Outlook Add-in To Export Meetings.
 * All of your meetings should be 'Categorized' into categories.
 * Open up a calendar item that occurred during the week you wish to export a timecard for.
 * In the menu ribbon, click the '...' and select `Time Card Exporter`
-* This will download a CSV file containing the weekly timecard.
+* This will download a CSV file containing the weekly timecard, with rows for each category name, and meeting durations aggregated per category, per day-of-week.
 
 # Questions/Issues/Suggestions
 * https://github.com/ericranstrom/TimeCardExporter/issues/new
