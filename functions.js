@@ -146,7 +146,7 @@ Category.prototype = {
     //processEvents
     this.events.forEach(function(event, id){
         console.log('event: ' + event.subject)
-        console.log('event start' + event.getDay())
+        console.log('event start' + event.start)
         this.subjects.push(event.subject);
         switch(event.start.getDay()) {
           case 0: //sunday
