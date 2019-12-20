@@ -42,7 +42,7 @@ function getResponsesForWeeklyEvents() {
         $.ajax({
             url: getWeeklyEventsUrl,
             dataType: 'json',
-            headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN }
+            headers: { 'Authorization': 'Bearer ' + ACCESS_TOKEN, 'Prefer':'outlook.timezone="Pacific Standard Time"' }
           }).done(function(response){
             var items = []
             response.value.forEach(function (item, index) {
