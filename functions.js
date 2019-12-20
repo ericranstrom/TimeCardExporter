@@ -146,11 +146,11 @@ Category.prototype = {
     //processEvents
     this.events.forEach(function(event, id){
         console.log('event: ' + event.subject)
-        console.log('start' + event.start)
-        console.log('day' + event.start.getDay())
-        console.log('utcDay') + event.start.getUTCDay()
+        console.log('start: ' + event.start)
+        console.log('day: ' + event.start.getDay())
+        console.log('utcDay: ' + event.start.getUTCDay())
         this.subjects.push(event.subject);
-        switch(event.start.getUTCDay()) {
+        switch(event.start.getDay()) {
           case 0: //sunday
             this.sun += event.durationInMillis;
             break;
