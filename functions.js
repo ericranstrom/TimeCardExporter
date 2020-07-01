@@ -78,6 +78,7 @@ function downloadCsv() {
     headers.push('fri')
     headers.push('sat')
     rows.push(headers)
+    console.log("Formatting " + CATEGORIES.length + "Categories for download")
     CATEGORIES.forEach(function (cat, id) {
         rows.push(cat.toList())
     });
@@ -94,6 +95,8 @@ function downloadCsv() {
     document.body.appendChild(link); // Required for FF
 
     link.click(); // This will download the data file named "my_data.csv".
+
+    Console.log("The Document Should have downloaded")
 }
 
 function msToHumanReadable(ms) {
