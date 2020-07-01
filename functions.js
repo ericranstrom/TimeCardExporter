@@ -94,9 +94,18 @@ function downloadCsv() {
     link.setAttribute("download", "week_of_"+ priorSun.getFullYear() + "_" + (priorSun.getMonth()+1) +"_"+priorSun.getDate()+".csv");
     document.body.appendChild(link); // Required for FF
 
-    link.click(); // This will download the data file named "my_data.csv".
+    link.click(); // This will download the data file.
 
     console.log("The Document Should have downloaded")
+
+    var pom = document.createElement('a');
+    var blob = new Blob([csvContent],{type: 'text/csv;charset=utf-8;'});
+    var url = URL.createObjectURL(blob);
+    pom.href = url;
+    pom.setAttribute('download', "week_of_"+ priorSun.getFullYear() + "_" + (priorSun.getMonth()+1) +"_"+priorSun.getDate()+".csv");
+    pom.click();
+
+    console.log("The Document Should have downloaded again")
 }
 
 function msToHumanReadable(ms) {
