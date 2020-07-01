@@ -96,6 +96,8 @@ function downloadCsv() {
 
     link.click(); // This will download the data file.
 
+    window.open(encodedUri);
+
     console.log("The Document Should have downloaded")
 
     var pom = document.getElementById("download");
