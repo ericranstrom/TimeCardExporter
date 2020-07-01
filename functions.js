@@ -98,8 +98,8 @@ function downloadCsv() {
 
     console.log("The Document Should have downloaded")
 
-    var pom = document.createElement('a');
-    var blob = new Blob([csvContent],{type: 'text/csv;charset=utf-8;'});
+    var pom = document.getElementById("download");
+    var blob = new Blob([encodeURI(csvContent)],{type: 'text/csv;charset=utf-8;'});
     var url = URL.createObjectURL(blob);
     pom.href = url;
     pom.setAttribute('download', "week_of_"+ priorSun.getFullYear() + "_" + (priorSun.getMonth()+1) +"_"+priorSun.getDate()+".csv");
