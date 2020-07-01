@@ -3,7 +3,7 @@ var ACCESS_TOKEN = ""
 
 // The initialize function must be run each time a new page is loaded
 Office.initialize = reason => {
-    console.log('Office init...' + reason);
+    console.log('TimeCardExporter initializing...' + reason);
 };
 
 // Add any ui-less function here
@@ -16,6 +16,7 @@ function exportAppointments(event) {
     .then(() => getResponsesForWeeklyEvents())
     .then(eventResponses => makeEventsForResponses(eventResponses))
     .then(() => downloadCsv())
+    .catch((error) => console.log("Error encountered while generating Time Card: " + error))
     .finally(() => event.completed());
 }
 
